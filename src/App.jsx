@@ -1,14 +1,14 @@
 import './App.css'
+import { FormMovie } from './components/FormMovie'
+import { FormSerial } from './components/FormSerials'
 
 function App() {
 
   const movieClickHandler = () => {
-    // changeVisibleForm("addMovie")
     let form = document.querySelector(`form[name=addMovie]`)
     form.classList.toggle("hidden")
   }
   const serialClickHandler = () => {
-    // changeVisibleForm("addSerial")
     let form = document.querySelector(`form[name=addSerial]`)
     form.classList.toggle("hidden")
   }
@@ -19,24 +19,8 @@ function App() {
       <button name="movie" onClick={movieClickHandler}>фильм/мультфильм</button>
       <button name="serial" onClick={serialClickHandler}>сериал/аниме</button>
 
-      <form name="addMovie">
-        <label htmlFor="addMovie">Добавить фильм/мультфильм</label>
-        <br />
-        <input type="text" name="name" placeholder="название" />
-        <input type="number" name="part" placeholder="часть" />
-        <input type="checkbox" name="isFinished" />
-        <button type="submit">добавить</button>
-      </form>
-
-      <form name="addSerial">
-        <label htmlFor="addMovie">Добавить сериал/аниме</label>
-        <br />
-        <input type="text" name="name" placeholder="название" />
-        <input type="number" name="season" placeholder="сезон" />
-        <input type="number" name="series" placeholder="серия" />
-        <input type="checkbox" name="isFinished" />
-        <button type="submit">добавить</button>
-      </form>
+      <FormMovie formName="addMovie"/>
+      <FormSerial formName="addSerial" />
 
       <table>
         <thead>
