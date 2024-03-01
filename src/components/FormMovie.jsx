@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import styles from "./Form.module.css"
+import { addToStorage } from "../utils/storageManager"
 
 // eslint-disable-next-line react/prop-types
 export const FormMovie = ({ formName }) => {
@@ -13,9 +14,8 @@ export const FormMovie = ({ formName }) => {
   const [finished, setFinished] = useState(false)
 
   const [formValid, setFormValid] = useState(false)
-  const [data, setData] = useState("")
 
-  const nameChange = (e) => {
+  const handleName = (e) => {
     console.log(e.target.value)
     setInputName(e.target.value)
     if (e.target.value) {
@@ -25,7 +25,7 @@ export const FormMovie = ({ formName }) => {
     }
   }
 
-  const partChange = (e) => {
+  const handlePart = (e) => {
     console.log(e.target.value)
     console.log(typeof e.target.value)
     setPart(e.target.value)
@@ -38,7 +38,7 @@ export const FormMovie = ({ formName }) => {
     }
   }
 
-  const finishedChange = (e) => {
+  const handleFinished = (e) => {
     console.log("finished ", e.target.value)
     setFinished(e.target.value)
     console.log(nameError, partError)
@@ -70,14 +70,11 @@ export const FormMovie = ({ formName }) => {
 
   const submitData = (e) => {
     e.preventDefault()
-    setData(JSON.stringify({inputName, part, finished}))
-    // с первого раза добавляет null, а со второго уже содержимое state data
-    // почему?
-    window.localStorage.setItem("movie", data)
+    addToStorage("movie", {inputName, part, finished})
   }
 
   return (
-    <form name={formName}>
+    <form name={formName} onSubmit={submitData}>
       <fieldset>
         <legend>Добавить фильм/мультфильм</legend>
         <div className={styles.row}>
@@ -89,7 +86,7 @@ export const FormMovie = ({ formName }) => {
               name="name"
               placeholder="название"
               onBlur={blurHandler}
-              onChange={nameChange}
+              onChange={handleName}
             />
           </label>
           <label htmlFor="part" className={styles.col}>
@@ -100,7 +97,7 @@ export const FormMovie = ({ formName }) => {
               name="part"
               placeholder="часть"
               onBlur={blurHandler}
-              onChange={partChange}
+              onChange={handlePart}
             />
           </label>
           <label htmlFor="isFinished" className={styles.col}>
@@ -109,10 +106,10 @@ export const FormMovie = ({ formName }) => {
               type="checkbox"
               name="isFinished"
               placeholder="Завершен"
-              onChange={finishedChange}
+              onChange={handleFinished}
             />
           </label>
-          <button type="submit" disabled={!formValid} onClick={submitData}>добавить</button>
+          <button type="submit" disabled={!formValid}>добавить</button>
         </div>
       </fieldset>
     </form>

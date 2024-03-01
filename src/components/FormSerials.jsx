@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import PropTypes from 'prop-types'
 import styles from "./Form.module.css"
+import { addToStorage } from "../utils/storageManager"
 
 // eslint-disable-next-line react/prop-types
 export const FormSerial = ({ formName }) => {
@@ -15,9 +16,8 @@ export const FormSerial = ({ formName }) => {
   const [finished, setFinished] = useState(false)
 
   const [formValid, setFormValid] = useState(false)
-  const [data, setData] = useState(null)
 
-  const nameChange = (e) => {
+  const handleName = (e) => {
     setInputName(e.target.value)
     if (e.target.value) {
       setNameError(false)
@@ -26,7 +26,7 @@ export const FormSerial = ({ formName }) => {
     }
   }
 
-  const seasonChange = (e) => {
+  const handleSeason = (e) => {
     setSeason(e.target.value)
     if (e.target.value <= 0) {
       setSeasonError("Часть может быть только положительным числом")
@@ -36,7 +36,7 @@ export const FormSerial = ({ formName }) => {
       setSeasonError(false)
     }
   }
-  const seriesChange = (e) => {
+  const handleSeries = (e) => {
     setSeries(e.target.value)
     if (e.target.value <= 0) {
       setSeriesError("Часть может быть только положительным числом")
@@ -47,7 +47,7 @@ export const FormSerial = ({ formName }) => {
     }
   }
 
-  const finishedChange = (e) => {
+  const handleFinished = (e) => {
     setFinished(e.target.value)
   }
 
@@ -81,10 +81,7 @@ export const FormSerial = ({ formName }) => {
 
   const submitData = (e) => {
     e.preventDefault()
-    setData(JSON.stringify({inputName, season, series, finished}))
-    // с первого раза добавляет null, а со второго уже содержимое state data
-    // почему?
-    window.localStorage.setItem("serial", data)
+    addToStorage("serial", {inputName, season, series, finished})
   }
 
   return (
@@ -101,7 +98,7 @@ export const FormSerial = ({ formName }) => {
               type="text"
               name="name"
               placeholder="название"
-              onChange={nameChange}
+              onChange={handleName}
               onBlur={blurHandler}
             />
           </label>
@@ -112,7 +109,7 @@ export const FormSerial = ({ formName }) => {
               type="number"
               name="season"
               placeholder="сезон"
-              onChange={seasonChange}
+              onChange={handleSeason}
               onBlur={blurHandler}
             />
           </label>
@@ -123,7 +120,7 @@ export const FormSerial = ({ formName }) => {
               type="number"
               name="series"
               placeholder="серия"
-              onChange={seriesChange}
+              onChange={handleSeries}
               onBlur={blurHandler}
             />
           </label>
@@ -132,7 +129,7 @@ export const FormSerial = ({ formName }) => {
             <input
               type="checkbox"
               name="isFinished"
-              onChange={finishedChange}
+              onChange={handleFinished}
             />
           </label>
           <button type="submit" disabled={!formValid} onClick={submitData}>добавить</button>
