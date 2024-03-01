@@ -1,0 +1,4 @@
+.movieserialformvisible {
+    display:  grid;
+    place-content: center;
+}
