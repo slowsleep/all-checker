@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./Form.module.css";
 import { addToStorage } from "../../utils/storageManager";
+import { v4 as uuidv4 } from 'uuid';
 
 // eslint-disable-next-line react/prop-types
 export const MovieForm = ({ formName }) => {
-    const [inputName, setInputName] = useState("");
+    const [title, setTitle] = useState("");
     const [part, setPart] = useState("");
 
     const [nameError, setNameError] = useState(true);
@@ -17,7 +18,7 @@ export const MovieForm = ({ formName }) => {
 
     const handleName = (e) => {
         console.log(e.target.value);
-        setInputName(e.target.value);
+        setTitle(e.target.value);
         if (e.target.value) {
             setNameError(false);
         } else {
@@ -69,7 +70,7 @@ export const MovieForm = ({ formName }) => {
 
     const submitData = (e) => {
         e.preventDefault();
-        addToStorage("movie", { inputName, part, finished });
+        addToStorage("movie", { id: uuidv4(), title, part, finished });
     };
 
     return (

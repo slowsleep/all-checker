@@ -2,10 +2,11 @@ import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./Form.module.css";
 import { addToStorage } from "../../utils/storageManager";
+import { v4 as uuidv4 } from 'uuid';
 
 // eslint-disable-next-line react/prop-types
 export const SeriesForm = ({ formName }) => {
-    const [inputName, setInputName] = useState("");
+    const [title, setTitle] = useState("");
     const [season, setSeason] = useState("");
     const [series, setSeries] = useState("");
 
@@ -18,7 +19,7 @@ export const SeriesForm = ({ formName }) => {
     const [formValid, setFormValid] = useState(false);
 
     const handleName = (e) => {
-        setInputName(e.target.value);
+        setTitle(e.target.value);
         if (e.target.value) {
             setNameError(false);
         } else {
@@ -80,7 +81,7 @@ export const SeriesForm = ({ formName }) => {
 
     const submitData = (e) => {
         e.preventDefault();
-        addToStorage("serial", { inputName, season, series, finished });
+        addToStorage("serial", { id: uuidv4(), title, season, series, finished });
     };
 
     return (
