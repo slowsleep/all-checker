@@ -1,4 +1,16 @@
+import { useEffect, useState } from "react";
+import { getFromStorage } from "../../utils/storageManager.js";
+
 export const MovieTable = () => {
+    const [movies, setMovies] = useState([]);
+
+    useEffect(() => {
+        let movieItems = getFromStorage("movie");
+        if (movies !== movieItems) {
+            setMovies(movieItems);
+        }
+    }, []);
+
     return (
         <>
             <h2>Список фильмов</h2>
@@ -13,19 +25,18 @@ export const MovieTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>название</td>
-                        <td>часть</td>
-                        <td>
-                            <input type="checkbox" checked />
-                        </td>
-                        <td>
-                            <button>изменить</button>
-                        </td>
-                        <td>
-                            <button>удалить</button>
-                        </td>
-                    </tr>
+                    {movies.map((item) => (
+                        <tr key={item.id}>
+                            <td>{item.title}</td>
+                            <td>{item.part}</td>
+                            <td>
+                                <input type="checkbox" defaultChecked={item.finished} disabled />
+                            </td>
+                            <td>
+                                <button>изменить</button>
+                            </td>
+                        </tr>
+                    ))}
                     <tr>
                         <td>
                             <input type="text" placeholder="название" />
@@ -41,6 +52,9 @@ export const MovieTable = () => {
                         </td>
                         <td>
                             <button>удалить</button>
+                        </td>
+                        <td>
+                            <button>отменить</button>
                         </td>
                     </tr>
                 </tbody>

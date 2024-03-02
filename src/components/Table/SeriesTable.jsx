@@ -1,4 +1,16 @@
+import { useEffect, useState } from "react";
+import { getFromStorage } from "../../utils/storageManager.js";
+
 export const SeriesTable = () => {
+    const [series, setSeries] = useState([]);
+
+    useEffect(() => {
+        let seriesItems = getFromStorage("serial");
+        if (series !== seriesItems) {
+            setSeries(seriesItems);
+        }
+    }, []);
+
     return (
         <>
             <h2>Список сериалов</h2>
@@ -6,7 +18,6 @@ export const SeriesTable = () => {
                 <thead>
                     <tr>
                         <td>название</td>
-                        <td>часть</td>
                         <td>сезон</td>
                         <td>серия</td>
                         <td>просмотрен</td>
@@ -15,20 +26,23 @@ export const SeriesTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>название</td>
-                        <td>сезон</td>
-                        <td>серия</td>
-                        <td>
-                            <input type="checkbox" checked />
-                        </td>
-                        <td>
-                            <button>изменить</button>
-                        </td>
-                        <td>
-                            <button>удалить</button>
-                        </td>
-                    </tr>
+                    {series.map((item) => (
+                        <tr key={item.id}>
+                            <td>{item.title}</td>
+                            <td>{item.season}</td>
+                            <td>{item.series}</td>
+                            <td>
+                                <input
+                                    type="checkbox"
+                                    defaultChecked={item.finished}
+                                    disabled
+                                />
+                            </td>
+                            <td>
+                                <button>изменить</button>
+                            </td>
+                        </tr>
+                    ))}
                     <tr>
                         <td>
                             <input type="text" placeholder="название" />
@@ -47,6 +61,9 @@ export const SeriesTable = () => {
                         </td>
                         <td>
                             <button>удалить</button>
+                        </td>
+                        <td>
+                            <button>отменить</button>
                         </td>
                     </tr>
                 </tbody>
