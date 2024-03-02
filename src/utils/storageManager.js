@@ -1,3 +1,8 @@
+/**
+ *
+ * @param {string} key accepts one of these parameters -> movie|serial
+ * @returns JSON Object
+ */
 export function getFromStorage(key) {
     try {
         return JSON.parse(localStorage.getItem(key) || "[]")
