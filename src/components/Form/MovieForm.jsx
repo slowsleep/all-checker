@@ -17,7 +17,6 @@ export const MovieForm = ({ formName }) => {
     const [formValid, setFormValid] = useState(false);
 
     const handleName = (e) => {
-        console.log(e.target.value);
         setTitle(e.target.value);
         if (e.target.value) {
             setNameError(false);
@@ -27,10 +26,8 @@ export const MovieForm = ({ formName }) => {
     };
 
     const handlePart = (e) => {
-        console.log(e.target.value);
-        console.log(typeof e.target.value);
         setPart(e.target.value);
-        if (e.target.value <= 0) {
+        if (e.target.value < 0) {
             setPartError("Часть может быть только положительным числом");
         } else if (!e.target.value) {
             setPart(null);
@@ -40,9 +37,7 @@ export const MovieForm = ({ formName }) => {
     };
 
     const handleFinished = (e) => {
-        console.log("finished ", e.target.value);
         setFinished(e.target.value);
-        console.log(nameError, partError);
     };
 
     const [nameDirty, setNameDirty] = useState(false);
