@@ -29,6 +29,7 @@ export function removeFromStorage(key, id) {
                 curItems.splice(curItems.indexOf(item), 1)
             }
         })
+        window.localStorage.setItem(key, JSON.stringify(curItems))
     } catch(e) {
         console.error(e)
     }
@@ -43,6 +44,21 @@ export function getFromStorageById(key, id) {
             }
         })
         return null
+    } catch(e) {
+        console.error(e)
+    }
+}
+
+export function updateItemStorage(key, object) {
+    try {
+        let curItems = getFromStorage(key)
+        let newItems = curItems.map((item) => {
+            if (item.id === object.id) {
+                item = object
+            }
+            return item
+        })
+        window.localStorage.setItem(key, JSON.stringify(newItems))
     } catch(e) {
         console.error(e)
     }
