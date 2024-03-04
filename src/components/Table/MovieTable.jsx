@@ -15,8 +15,6 @@ export const MovieTable = () => {
                             <td>название</td>
                             <td>часть</td>
                             <td>просмотрен</td>
-                            <td></td>
-                            <td></td>
                         </tr>
                     </thead>
                     <tbody>
