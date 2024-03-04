@@ -5,7 +5,7 @@ import { getSeries } from "../../features/series/seriesSlice.js";
 export const SeriesTable = () => {
     const series = useSelector(getSeries);
 
-    if (series.tength) {
+    if (series.length) {
         return (
             <>
                 <h2>Список сериалов</h2>
