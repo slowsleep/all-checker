@@ -1,8 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit"
-import movieReducer from "../features/movie/movieSlice"
+import { configureStore } from "@reduxjs/toolkit";
+import movieReducer from "../features/movie/movieSlice";
+import seriesReducer from "../features/series/seriesSlice"
 
 export const store = configureStore({
     reducer: {
-        movie: movieReducer
+        movie: movieReducer,
+        series: seriesReducer,
     },
 })

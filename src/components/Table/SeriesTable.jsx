@@ -1,15 +1,9 @@
-import { useEffect, useState } from "react";
-import { getFromStorage } from "../../utils/storageManager.js";
+import RowSeriesTable from "./RowSeriesTable.jsx";
+import { useSelector } from "react-redux"
+import { getSeries } from "../../features/series/seriesSlice.js";
 
 export const SeriesTable = () => {
-    const [series, setSeries] = useState([]);
-
-    useEffect(() => {
-        let seriesItems = getFromStorage("serial");
-        if (series !== seriesItems) {
-            setSeries(seriesItems);
-        }
-    }, []);
+    const series = useSelector(getSeries);
 
     return (
         <>
@@ -21,51 +15,12 @@ export const SeriesTable = () => {
                         <td>сезон</td>
                         <td>серия</td>
                         <td>просмотрен</td>
-                        <td></td>
-                        <td></td>
                     </tr>
                 </thead>
                 <tbody>
                     {series.map((item) => (
-                        <tr key={item.id}>
-                            <td>{item.title}</td>
-                            <td>{item.season}</td>
-                            <td>{item.series}</td>
-                            <td>
-                                <input
-                                    type="checkbox"
-                                    defaultChecked={item.finished}
-                                    disabled
-                                />
-                            </td>
-                            <td>
-                                <button>изменить</button>
-                            </td>
-                        </tr>
+                        <RowSeriesTable key={item.id} singleSeries={item} />
                     ))}
-                    <tr>
-                        <td>
-                            <input type="text" placeholder="название" />
-                        </td>
-                        <td>
-                            <input type="number" placeholder="сезон" />
-                        </td>
-                        <td>
-                            <input type="number" placeholder="серия" />
-                        </td>
-                        <td>
-                            <input type="checkbox" />
-                        </td>
-                        <td>
-                            <button>сохранить</button>
-                        </td>
-                        <td>
-                            <button>удалить</button>
-                        </td>
-                        <td>
-                            <button>отменить</button>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </>

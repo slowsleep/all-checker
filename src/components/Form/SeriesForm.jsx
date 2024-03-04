@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./Form.module.css";
-import { addToStorage } from "../../utils/storageManager";
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from "react-redux"
+import { add } from "../../features/series/seriesSlice";
 
 // eslint-disable-next-line react/prop-types
 export const SeriesForm = ({ formName }) => {
+    const dispatch = useDispatch();
     const [title, setTitle] = useState("");
     const [season, setSeason] = useState("");
     const [series, setSeries] = useState("");
@@ -30,7 +32,7 @@ export const SeriesForm = ({ formName }) => {
     const handleSeason = (e) => {
         setSeason(e.target.value);
         if (e.target.value <= 0) {
-            setSeasonError("Часть может быть только положительным числом");
+            setSeasonError("Сезон может быть только положительным числом");
         } else if (!e.target.value) {
             setSeasonError(null);
         } else {
@@ -40,7 +42,7 @@ export const SeriesForm = ({ formName }) => {
     const handleSeries = (e) => {
         setSeries(e.target.value);
         if (e.target.value <= 0) {
-            setSeriesError("Часть может быть только положительным числом");
+            setSeriesError("Серия может быть только положительным числом");
         } else if (!e.target.value) {
             setSeriesError(null);
         } else {
@@ -81,7 +83,7 @@ export const SeriesForm = ({ formName }) => {
 
     const submitData = (e) => {
         e.preventDefault();
-        addToStorage("serial", { id: uuidv4(), title, season, series, finished });
+        dispatch(add({ id: uuidv4(), title, season, series, finished }));
     };
 
     return (
