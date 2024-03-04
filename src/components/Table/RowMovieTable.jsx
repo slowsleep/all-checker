@@ -1,11 +1,10 @@
 import { useState } from "react";
-import {
-    updateItemStorage,
-    removeFromStorage,
-} from "../../utils/storageManager.js";
+import { useDispatch } from "react-redux";
+import { edit, remove } from "../../features/movie/movieSlice";
 
 // eslint-disable-next-line react/prop-types
 const RowMovieTable = ({ movie }) => {
+    const dispatch = useDispatch();
     const [isEdit, setIsEdit] = useState(false);
 
     const toggleBtns = (row) => {
@@ -29,10 +28,8 @@ const RowMovieTable = ({ movie }) => {
         if (!isEdit) setIsEdit(true);
 
         setIsEdit(true);
-
         let btn = e.target;
         let curRow = btn.parentElement.parentElement;
-
         toggleBtns(curRow);
     };
 
@@ -40,7 +37,6 @@ const RowMovieTable = ({ movie }) => {
         e.preventDefault();
         let btn = e.target;
         let curRow = btn.parentElement.parentElement;
-
         let newTitle = curRow.querySelector("input[name=movietitle]").value;
         let newPart = curRow.querySelector("input[name=moviepart]").value;
         let newFinished = curRow.querySelector(
@@ -55,14 +51,13 @@ const RowMovieTable = ({ movie }) => {
         };
 
         toggleBtns(curRow);
-        updateItemStorage("movie", editedMovie);
         setIsEdit(false);
+        dispatch(edit(editedMovie));
     };
 
     const handleDeleteMovie = (e) => {
         e.preventDefault();
-
-        removeFromStorage("movie", movie.id);
+        dispatch(remove(movie.id));
     };
 
     const handleCancel = (e) => {
@@ -82,7 +77,6 @@ const RowMovieTable = ({ movie }) => {
                     <input
                         type="text"
                         defaultValue={movie.title}
-                        onChange={(e) => console.log(e.target.value)}
                         name="movietitle"
                     />
                 )}
@@ -94,7 +88,6 @@ const RowMovieTable = ({ movie }) => {
                     <input
                         type="number"
                         defaultValue={movie.part}
-                        onChange={(e) => console.log(e.target.value)}
                         name="moviepart"
                     />
                 )}

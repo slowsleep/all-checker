@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./Form.module.css";
-import { addToStorage } from "../../utils/storageManager";
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from "react-redux"
+import { add } from "../../features/movie/movieSlice"
 
 // eslint-disable-next-line react/prop-types
 export const MovieForm = ({ formName }) => {
+    const dispatch = useDispatch();
     const [title, setTitle] = useState("");
     const [part, setPart] = useState("");
 
@@ -65,7 +67,7 @@ export const MovieForm = ({ formName }) => {
 
     const submitData = (e) => {
         e.preventDefault();
-        addToStorage("movie", { id: uuidv4(), title, part, finished });
+        dispatch(add({ id: uuidv4(), title, part, finished }));
     };
 
     return (
