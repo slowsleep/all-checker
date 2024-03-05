@@ -10,7 +10,7 @@ export const MovieSeriesFormVisible = () => {
         form.classList.toggle("hidden");
     };
     return (
-        <div className={styles.movieserialformvisible}>
+        <div className={styles.movieseriesformvisible}>
             <h1>Что вы хотите добавить?</h1>
             <button name="movie" onClick={movieClickHandler}>
                 фильм/мультфильм
