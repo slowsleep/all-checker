@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { edit, remove } from "../../features/movie/movieSlice";
+import { edit, remove } from "../../../features/movie/movieSlice";
 
 // eslint-disable-next-line react/prop-types
 const RowMovieTable = ({ movie }) => {

@@ -1,6 +1,6 @@
 import RowSeriesTable from "./RowSeriesTable.jsx";
 import { useSelector } from "react-redux";
-import { getSeries } from "../../features/series/seriesSlice.js";
+import { getSeries } from "../../../features/series/seriesSlice.js";
 
 export const SeriesTable = () => {
     const series = useSelector(getSeries);

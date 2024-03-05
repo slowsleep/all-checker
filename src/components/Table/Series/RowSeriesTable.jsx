@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { edit, remove } from "../../features/series/seriesSlice";
+import { edit, remove } from "../../../features/series/seriesSlice";
 
 // eslint-disable-next-line react/prop-types
 const RowSeriesTable = ({ singleSeries }) => {

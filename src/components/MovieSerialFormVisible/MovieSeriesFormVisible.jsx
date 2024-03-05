@@ -1,12 +1,12 @@
-import styles from "./MovieSerialFormVisible.module.css"
+import styles from "./MovieSeriesFormVisible.module.css"
 
-export const MovieSerialFormVisible = () => {
+export const MovieSeriesFormVisible = () => {
     const movieClickHandler = () => {
         let form = document.querySelector(`form[name=addMovie]`);
         form.classList.toggle("hidden");
     };
-    const serialClickHandler = () => {
-        let form = document.querySelector(`form[name=addSerial]`);
+    const seriesClickHandler = () => {
+        let form = document.querySelector(`form[name=addSeries]`);
         form.classList.toggle("hidden");
     };
     return (
@@ -15,7 +15,8 @@ export const MovieSerialFormVisible = () => {
             <button name="movie" onClick={movieClickHandler}>
                 фильм/мультфильм
             </button>
-            <button name="serial" onClick={serialClickHandler}>
+            <button name="series
+            " onClick={seriesClickHandler}>
                 сериал/аниме
             </button>
         </div>

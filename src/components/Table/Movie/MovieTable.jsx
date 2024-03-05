@@ -1,6 +1,6 @@
 import RowMovieTable from "./RowMovieTable.jsx";
 import { useSelector } from "react-redux"
-import { getMovies } from '../../features/movie/movieSlice'
+import { getMovies } from '../../../features/movie/movieSlice.js'
 
 export const MovieTable = () => {
     const movies = useSelector(getMovies);

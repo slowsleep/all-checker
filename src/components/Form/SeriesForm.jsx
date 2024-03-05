@@ -10,11 +10,11 @@ export const SeriesForm = ({ formName }) => {
     const dispatch = useDispatch();
     const [title, setTitle] = useState("");
     const [season, setSeason] = useState("");
-    const [series, setSeries] = useState("");
+    const [episode, setEpisode] = useState("");
 
     const [nameError, setNameError] = useState(true);
     const [seasonError, setSeasonError] = useState(true);
-    const [seriesError, setSeriesError] = useState(true);
+    const [episodeError, setEpisodeError] = useState(true);
 
     const [finished, setFinished] = useState(false);
 
@@ -39,14 +39,14 @@ export const SeriesForm = ({ formName }) => {
             setSeasonError(false);
         }
     };
-    const handleSeries = (e) => {
-        setSeries(e.target.value);
+    const handleEpisode = (e) => {
+        setEpisode(e.target.value);
         if (e.target.value <= 0) {
-            setSeriesError("Серия может быть только положительным числом");
+            setEpisodeError("Серия может быть только положительным числом");
         } else if (!e.target.value) {
-            setSeriesError(null);
+            setEpisodeError(null);
         } else {
-            setSeriesError(false);
+            setEpisodeError(false);
         }
     };
 
@@ -74,16 +74,16 @@ export const SeriesForm = ({ formName }) => {
     };
 
     useEffect(() => {
-        if (nameError || seasonError || seriesError) {
+        if (nameError || seasonError || episodeError) {
             setFormValid(false);
         } else {
             setFormValid(true);
         }
-    }, [nameError, seasonError, seriesError]);
+    }, [nameError, seasonError, episodeError]);
 
     const submitData = (e) => {
         e.preventDefault();
-        dispatch(add({ id: uuidv4(), title, season, series, finished }));
+        dispatch(add({ id: uuidv4(), title, season, episode, finished }));
     };
 
     return (
@@ -115,12 +115,12 @@ export const SeriesForm = ({ formName }) => {
                     </label>
                     <label htmlFor="series" className={styles.col}>
                         серия
-                        {seriesDirty && seriesError && <div>{seriesError}</div>}
+                        {seriesDirty && episodeError && <div>{episodeError}</div>}
                         <input
                             type="number"
-                            name="series"
+                            name="episode"
                             placeholder="серия"
-                            onChange={handleSeries}
+                            onChange={handleEpisode}
                             onBlur={blurHandler}
                         />
                     </label>
