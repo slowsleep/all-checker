@@ -11,7 +11,7 @@ function App() {
             <Layout>
                 <MovieSeriesFormVisible />
                 <MovieForm formName="addMovie" />
-                <SeriesForm formName="addSerial" />
+                <SeriesForm formName="addSeries" />
                 <MovieTable/>
                 <SeriesTable/>
             </Layout>
