@@ -67,6 +67,10 @@ const RowSeriesTable = ({ singleSeries }) => {
         let btn = e.target;
         let curRow = btn.parentElement.parentElement;
         toggleBtns(curRow);
+        let newFinished = curRow.querySelector(
+            "input[name=seriesFinished]"
+        );
+        newFinished.checked = singleSeries.finished
         setIsEdit(false);
     };
 
@@ -106,21 +110,12 @@ const RowSeriesTable = ({ singleSeries }) => {
                 )}
             </td>
             <td>
-                {!isEdit ? (
-                    <input
-                        type="checkbox"
-                        checked={singleSeries.finished}
-                        disabled={isEdit ? false : true}
-                        name="seriesFinished"
-                    />
-                ) : (
-                    <input
-                        type="checkbox"
-                        defaultChecked={singleSeries.finished}
-                        disabled={isEdit ? false : true}
-                        name="seriesFinished"
-                    />
-                )}
+                <input
+                    type="checkbox"
+                    defaultChecked={singleSeries.finished}
+                    disabled={isEdit ? false : true}
+                    name="seriesFinished"
+                />
             </td>
             <td>
                 <button

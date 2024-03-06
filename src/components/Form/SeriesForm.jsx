@@ -51,7 +51,7 @@ export const SeriesForm = ({ formName }) => {
     };
 
     const handleFinished = (e) => {
-        setFinished(e.target.value);
+        setFinished(e.target.checked);
     };
 
     const [nameDirty, setNameDirty] = useState(false);

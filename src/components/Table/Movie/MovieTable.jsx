@@ -1,3 +1,4 @@
+// import RowMovieTable from "./RowMovieTable.jsx";
 import RowMovieTable from "./RowMovieTable.jsx";
 import { useSelector } from "react-redux"
 import { getMovies } from '../../../features/movie/movieSlice.js'

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { edit, remove } from "../../../features/movie/movieSlice";
 
@@ -50,8 +50,8 @@ const RowMovieTable = ({ movie }) => {
             finished: newFinished,
         };
 
-        toggleBtns(curRow);
         setIsEdit(false);
+        toggleBtns(curRow);
         dispatch(edit(editedMovie));
     };
 
@@ -64,8 +64,12 @@ const RowMovieTable = ({ movie }) => {
         e.preventDefault();
         let btn = e.target;
         let curRow = btn.parentElement.parentElement;
-        toggleBtns(curRow);
         setIsEdit(false);
+        let newFinished = curRow.querySelector(
+            "input[name=movieFinished]"
+        );
+        newFinished.checked = movie.finished;
+        toggleBtns(curRow);
     };
 
     return (
@@ -93,21 +97,12 @@ const RowMovieTable = ({ movie }) => {
                 )}
             </td>
             <td>
-                {!isEdit ? (
-                    <input
-                        type="checkbox"
-                        checked={movie.finished}
-                        disabled={isEdit ? false : true}
-                        name="movieFinished"
-                    />
-                ) : (
-                    <input
-                        type="checkbox"
-                        defaultChecked={movie.finished}
-                        disabled={isEdit ? false : true}
-                        name="movieFinished"
-                    />
-                )}
+                <input
+                    type="checkbox"
+                    defaultChecked={movie.finished}
+                    disabled={isEdit ? false : true}
+                    name="movieFinished"
+                />
             </td>
             <td>
                 <button onClick={handleEditMovie} name="btnmovieedit">
